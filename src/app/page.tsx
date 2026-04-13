@@ -3,6 +3,7 @@ import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import FeaturesSection from "./components/FeaturesSection";
 import HeroSection from "./components/HeroSection";
+import TestimonialsSection from "./components/TestimonialsSection";
 
 // 1. THIS IS YOUR SEO METADATA
 export const metadata = {
@@ -19,6 +20,7 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <AboutSection />
+      <TestimonialsSection />
       <ContactSection />
     </Box>
   );

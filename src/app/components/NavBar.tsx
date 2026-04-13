@@ -33,12 +33,81 @@ const BRAND_RED = "#d63a0f";
 const NAV_BG = "#0f0f0f";
 const NAV_HEIGHT = 90;
 
+// Shared logo markup used in both the SSR placeholder and full navbar
+function NavLogo() {
+  const BRAND_RED = "#d63a0f";
+  return (
+    <Link
+      href="/"
+      style={{
+        textDecoration: "none",
+        display: "flex",
+        alignItems: "center",
+        gap: 16,
+      }}
+    >
+      <Box
+        sx={{
+          position: "relative",
+          width: 76,
+          height: 76,
+          flexShrink: 0,
+          borderRadius: "50%",
+          overflow: "hidden",
+          border: `2px solid ${BRAND_RED}`,
+        }}
+      >
+        <Image
+          src="/logo.png"
+          alt="White's Auto Glass & Trim"
+          fill
+          sizes="76px"
+          style={{ objectFit: "cover" }}
+          priority
+        />
+      </Box>
+      <Box>
+        <Typography
+          sx={{
+            color: "#fff",
+            fontSize: "22px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.04em",
+            lineHeight: 1.15,
+            fontFamily: "'Arial Black', Arial, sans-serif",
+          }}
+        >
+          White&apos;s Auto Glass
+        </Typography>
+        <Typography
+          sx={{
+            color: BRAND_RED,
+            fontSize: "12px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.18em",
+            lineHeight: 1.5,
+          }}
+        >
+          & Trim · Taylor, MI
+        </Typography>
+      </Box>
+    </Link>
+  );
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (drawerOpen) setDrawerOpen(false);
@@ -50,6 +119,37 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // SSR / pre-mount placeholder — matches server output exactly, no isMobile branching
+  if (!mounted) {
+    return (
+      <AppBar
+        position="sticky"
+        elevation={0}
+        sx={{
+          bgcolor: NAV_BG,
+          borderBottom: "2px solid #1a1a1a",
+          height: NAV_HEIGHT,
+          justifyContent: "center",
+          zIndex: theme.zIndex.appBar,
+        }}
+      >
+        <Toolbar
+          disableGutters
+          sx={{
+            px: { xs: 3, md: 6 },
+            height: NAV_HEIGHT,
+            minHeight: `${NAV_HEIGHT}px !important`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <NavLogo />
+        </Toolbar>
+      </AppBar>
+    );
+  }
 
   return (
     <AppBar
@@ -75,66 +175,7 @@ export default function Navbar() {
           justifyContent: "space-between",
         }}
       >
-        {/* Logo */}
-        <Link
-          href="/"
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-          }}
-        >
-          {/* Circular logo container */}
-          <Box
-            sx={{
-              position: "relative",
-              width: 76,
-              height: 76,
-              flexShrink: 0,
-              borderRadius: "50%",
-              overflow: "hidden",
-              border: `2px solid ${BRAND_RED}`,
-            }}
-          >
-            <Image
-              src="/logo.png"
-              alt="White's Auto Glass & Trim"
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-            />
-          </Box>
-
-          {/* Company name */}
-          <Box>
-            <Typography
-              sx={{
-                color: "#fff",
-                fontSize: "22px",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
-                lineHeight: 1.15,
-                fontFamily: "'Arial Black', Arial, sans-serif",
-              }}
-            >
-              White&apos;s Auto Glass
-            </Typography>
-            <Typography
-              sx={{
-                color: BRAND_RED,
-                fontSize: "12px",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.18em",
-                lineHeight: 1.5,
-              }}
-            >
-              & Trim · Taylor, MI
-            </Typography>
-          </Box>
-        </Link>
+        <NavLogo />
 
         {/* Desktop links */}
         {!isMobile && (

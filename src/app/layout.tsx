@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import ThemeRegistry from "./lib/ThemeRegistry";
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Setting a solid default global SEO baseline
 export const metadata: Metadata = {
   title: "White's Auto Glass & Trim",
   description:
@@ -27,20 +15,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      {/* bg-[#0b0f19] ensures the background matches the dark theme if a page is short.
-        min-h-screen and flex-col allow the footer to stay at the bottom of the screen.
-      */}
-      <body className="min-h-screen flex flex-col bg-[#0b0f19] m-0 p-0">
-        <Navbar />
-
-        {/* flex-grow forces the main content area to expand and push the footer down */}
-        <main className="flex-grow">{children}</main>
-
-        <Footer />
+    <html lang="en">
+      <body
+        style={{
+          backgroundColor: "#0f0f0f",
+          margin: 0,
+          padding: 0,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <ThemeRegistry>
+          <Navbar />
+          <main style={{ flexGrow: 1 }}>{children}</main>
+          <Footer />
+        </ThemeRegistry>
       </body>
     </html>
   );

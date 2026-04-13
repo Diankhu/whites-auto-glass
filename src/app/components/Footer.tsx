@@ -101,11 +101,13 @@ export default function Footer() {
                 src="/logo.png"
                 alt="White's Auto Glass & Trim"
                 fill
+                sizes="68px"
                 style={{ objectFit: "cover" }}
               />
             </Box>
             <Box>
               <Typography
+                component="div"
                 sx={{
                   color: "#fff",
                   fontSize: "17px",
@@ -119,6 +121,7 @@ export default function Footer() {
                 White&apos;s Auto Glass
               </Typography>
               <Typography
+                component="div"
                 sx={{
                   color: BRAND_RED,
                   fontSize: "11px",
@@ -228,6 +231,7 @@ export default function Footer() {
         {/* Col 2 — Nav links */}
         <Box>
           <Typography
+            component="div"
             sx={{
               color: "#fff",
               fontSize: "12px",
@@ -268,6 +272,7 @@ export default function Footer() {
         {/* Col 3 — Service areas */}
         <Box>
           <Typography
+            component="div"
             sx={{
               color: "#fff",
               fontSize: "12px",
@@ -324,7 +329,10 @@ export default function Footer() {
           zIndex: 1,
         }}
       >
-        <Typography sx={{ color: "#333", fontSize: "13px" }}>
+        <Typography
+          sx={{ color: "#333", fontSize: "13px" }}
+          suppressHydrationWarning
+        >
           © {new Date().getFullYear()} White&apos;s Auto Glass & Trim. All
           rights reserved.
         </Typography>

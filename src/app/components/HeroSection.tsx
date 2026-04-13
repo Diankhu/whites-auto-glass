@@ -2,9 +2,6 @@
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Link from "next/link";
-
 const BRAND_RED = "#d63a0f";
 
 export default function Hero() {
