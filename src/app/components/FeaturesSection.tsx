@@ -18,12 +18,6 @@ const SERVICES = [
     description: "Full OEM-quality replacement for all makes and models.",
   },
   {
-    icon: <BuildIcon sx={{ fontSize: 28, color: BRAND_RED }} />,
-    title: "Windshield Repair",
-    description:
-      "Fast chip and crack repairs before they spread — often under an hour.",
-  },
-  {
     icon: <DirectionsCarIcon sx={{ fontSize: 28, color: BRAND_RED }} />,
     title: "Back Glass Replacement",
     description: "Rear window replacement including heated rear glass.",

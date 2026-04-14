@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import BuildIcon from "@mui/icons-material/Build";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ChairIcon from "@mui/icons-material/Chair";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import Link from "next/link";
 
 const BRAND_RED = "#d63a0f";
 
 export const metadata: Metadata = {
   title: "Services | White's Auto Glass & Trim",
   description:
-    "White's Auto Glass & Trim offers windshield replacement, windshield repair, back glass replacement, convertible top replacement, seat upholstery repair, water leak repair, and mobile service throughout Metro Detroit.",
+    "White's Auto Glass & Trim offers windshield replacement, windshield repair, back glass replacement, convertible top replacement, seat upholstery repair, water leak repair, and more throughout Metro Detroit.",
   keywords: [
     "windshield replacement Taylor MI",
     "windshield repair Metro Detroit",
@@ -39,57 +38,49 @@ const SERVICES = [
   {
     icon: <DirectionsCarIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Windshield Replacement",
-    description:
-      "Full OEM-quality windshield replacement for all makes and models. We source high-quality glass and ensure a clean, professional install every time.",
-  },
-  {
-    icon: <BuildIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
-    title: "Windshield Repair",
-    description:
-      "Got a chip or crack? We can repair most damage before it spreads — restoring clarity and structural integrity, often in under an hour.",
+    description: "Full OEM-quality replacement for all makes and models.",
+    href: "/services/windshield-replacement",
   },
   {
     icon: <DirectionsCarIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Back Glass Replacement",
-    description:
-      "Rear window replacement for all vehicles including heated rear glass. We handle everything from small cars to trucks and SUVs.",
+    description: "Rear window replacement including heated rear glass.",
+    href: "/services/back-glass-replacement",
   },
   {
     icon: <AutoFixHighIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Stone Chip Repair",
     description:
-      "Using advanced resins and proven techniques, we stop chips from becoming cracks and restore the look of your windshield.",
+      "Using advanced resins and proven techniques, we stop chips from becoming cracks.",
+    href: "/services/stone-chip-repair",
   },
   {
     icon: <ChairIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Seat Upholstery Repair",
     description:
-      "Restore torn, burned, or worn seats back to like-new condition. We work with a range of materials to match your vehicle's interior.",
+      "Restore torn, burned, or worn seats back to like-new condition.",
+    href: "/services/seat-upholstery-repair",
   },
   {
     icon: <WaterDropIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Water Leak Repair",
     description:
-      "We diagnose and seal water intrusion from windows, sunroofs, and door seals. We stand behind our work — if the leak persists, we fix it at no extra cost.",
+      "We find and seal leaks from windows, sunroofs, and door seals — and stand by our work.",
+    href: "/services/water-leak-repair",
   },
   {
     icon: <DirectionsCarIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Convertible Top Replacement",
     description:
-      "Full fabric and vinyl convertible top replacement and repair for all makes. Restore your convertible's look, function, and weather protection.",
+      "Full fabric and vinyl convertible top replacement and repair.",
+    href: "/services/convertible-top-replacement",
   },
   {
     icon: <VolumeOffIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
     title: "Cabin Noise & Rattle Repair",
     description:
-      "Distracting rattles and squeaks coming from your interior? We track down the source and eliminate it for good.",
-  },
-  {
-    icon: <LocalShippingIcon sx={{ fontSize: 32, color: BRAND_RED }} />,
-    title: "Mobile Service",
-    description:
-      "Can't make it to our shop? We come to you. Our mobile team handles most repairs and replacements at your home, office, or wherever is convenient.",
-    highlight: true,
+      "We track down and eliminate rattles, squeaks, and interior noises for good.",
+    href: "/services/cabin-noise-rattle-repair",
   },
 ];
 
@@ -164,12 +155,13 @@ export default function ServicesPage() {
             }}
           >
             From a quick chip repair to a full convertible top replacement —
-            White&apos;s Auto Glass & Trim handles it all. Family-owned, honest
-            pricing, and mobile service available throughout Metro Detroit.
+            White&apos;s Auto Glass &amp; Trim handles it all. Family-owned,
+            honest pricing, and mobile service available throughout Metro
+            Detroit.
           </Typography>
         </Box>
       </Box>
-
+      {/* Breadcrumb sits here, above everything else */}
       {/* Services grid */}
       <Box
         sx={{
@@ -190,57 +182,62 @@ export default function ServicesPage() {
           }}
         >
           {SERVICES.map((service) => (
-            <Box
+            <Link
               key={service.title}
-              sx={{
-                bgcolor: service.highlight ? "#fff5f2" : "#fff",
-                border: service.highlight
-                  ? `2px solid ${BRAND_RED}`
-                  : "1px solid #e8e8e8",
-                borderRadius: "4px",
-                borderTop: `3px solid ${BRAND_RED}`,
-                p: 4,
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                transition: "transform 0.2s, box-shadow 0.2s",
-                "&:hover": {
-                  transform: "translateY(-3px)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-                },
-              }}
+              href={service.href}
+              style={{ textDecoration: "none" }}
             >
               <Box
                 sx={{
-                  width: 52,
-                  height: 52,
-                  bgcolor: service.highlight ? "#fde8e2" : "#f5f5f5",
-                  borderRadius: "8px",
+                  bgcolor: "#fff",
+                  border: "1px solid #e8e8e8",
+                  borderRadius: "4px",
+                  borderTop: `3px solid ${BRAND_RED}`,
+                  p: 4,
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  gap: 2,
+                  height: "100%",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                  "&:hover": {
+                    transform: "translateY(-3px)",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                    borderColor: BRAND_RED,
+                  },
                 }}
               >
-                {service.icon}
+                <Box
+                  sx={{
+                    width: 52,
+                    height: 52,
+                    bgcolor: "#f5f5f5",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {service.icon}
+                </Box>
+                <Typography
+                  sx={{
+                    color: "#111",
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.04em",
+                    fontFamily: "'Arial Black', Arial, sans-serif",
+                  }}
+                >
+                  {service.title}
+                </Typography>
+                <Typography
+                  sx={{ color: "#777", fontSize: "14px", lineHeight: 1.75 }}
+                >
+                  {service.description}
+                </Typography>
               </Box>
-              <Typography
-                sx={{
-                  color: service.highlight ? BRAND_RED : "#111",
-                  fontSize: "15px",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.04em",
-                  fontFamily: "'Arial Black', Arial, sans-serif",
-                }}
-              >
-                {service.title}
-              </Typography>
-              <Typography
-                sx={{ color: "#777", fontSize: "14px", lineHeight: 1.75 }}
-              >
-                {service.description}
-              </Typography>
-            </Box>
+            </Link>
           ))}
         </Box>
       </Box>
